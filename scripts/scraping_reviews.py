@@ -3,7 +3,7 @@ import pandas as pd
 
 from playwright.sync_api import sync_playwright
 
-RESTOS = ["Onkel John's Coffee Hasanuddin", "Goodfields", "MyCoffee"]
+RESTOS = ["MyCoffee"]
 
 max_scrolls = 10
 scroll_pause = 2
@@ -26,12 +26,12 @@ with sync_playwright() as p:
         page.keyboard.press("Enter")
         page.wait_for_timeout(1000)
 
+        scrollabel_selector = 'div[role="main"]'
         if page.locator("div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde.ecceSd").count() > 0:
             page.locator("a.hfpxzc").first.click()
- 
+            scrollabel_selector = 'div.m6QErb.DxyBCb.kA9KIf.dS8AEf.XiKgde'
         page.get_by_role("tab", name=f"Ulasan untuk {resto}").click()
 
-        scrollabel_selector = 'div[role="main"]'
         page.wait_for_selector(scrollabel_selector, timeout=50000)
 
         last_height = 0
